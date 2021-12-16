@@ -2,80 +2,80 @@
 #include <GL/glut.h>
 #include <math.h>
 using namespace std;
-#define WINDOW_HEIGHT 500
-#define WINDOW_WIDTH 500
-typedef float point3[3];
-point3 tetra[4] = {
-  {0,250,-250},
-  {0,0,250},
-  {250,-250,250},
-  {-250,-250,-250}
-};
-int iter;
 
-void drawTriangle(point3 p1, point3 p2, point3 p3)  {
-  glVertex3fv(p1);
-  glVertex3fv(p2);
-  glVertex3fv(p3);
+// sphere radius
+#define SPR 75
+// degrees to pi conversion factor
+#define DPI (3.1415/180.f)
+// coordinates function macro
+#define SPHERE_GA(p1,p2) {SPR*sin(DPI*(p1))*cos(DPI*(p2)),SPR*cos(DPI*(p1))*cos(DPI*(p2)),SPR*sin(DPI*(p2))}
+
+void displayLoop() {
+	//glClearColor(0, 0, 0, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	for(int i=-80;i<80;i+=10){
+		glBegin(GL_QUAD_STRIP);
+		for(int thet=-180;thet<=180;thet+=10){
+			// glColor3f(c0,c0,c0);c0+=.00125;
+      glColor3f(1,1,1);
+			float p1[3] = SPHERE_GA(thet,i);
+			glVertex3fv(p1);
+      glColor3f(.8f,.8f,.8f);
+			float p2[3] = SPHERE_GA(thet,i+10);
+			glVertex3fv(p2);
+		}
+		glEnd();
+	}
+
+	//north cap
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1,0,0);
+	glVertex3f(0,0,SPR);
+
+	for(int thet=-180;thet<=180;thet+=10){
+		// glColor3f((thet+180)/360,.25,.25);
+		float p1[3] = SPHERE_GA(thet,80);
+		glVertex3fv(p1);
+	}
+	glEnd();
+
+	//south cap
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0,1,0);
+	glVertex3f(0,0,-SPR);
+	
+	for(int thet=-180;thet<=180;thet+=10){
+		// glColor3f((thet+180)/360,.25,.25);
+		float p1[3] = SPHERE_GA(thet,-80);
+		glVertex3fv(p1);
+	}
+
+	glEnd();
+	
+	glFlush();
 }
 
-void drawTetra(point3 p1, point3 p2, point3 p3, point3 p4) {
-  glColor3f(0,0,0);
-  drawTriangle(p1,p2,p3);
-  glColor3f(1,0,0);
-  drawTriangle(p1,p3,p4);
-  glColor3f(0,1,0);
-  drawTriangle(p1,p4,p2);
-  glColor3f(0,0,1);
-  drawTriangle(p2,p3,p4);
-}
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	//single buffer+rgb+depth
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	int w = 800,h=600;
+	glutInitWindowSize(w, h);
+	glutCreateWindow("Sphere Approximation");
 
-void divideTetra(point3 p1, point3 p2, point3 p3, point3 p4, int iter) {
-  point3 mid[6];
-  int j;
-  if(iter > 0) {
-    for(j=0;j<3;j++) mid[0][j] = (p1[j] + p2[j])/2;
-    for(j=0;j<3;j++) mid[1][j] = (p1[j] + p3[j])/2;
-    for(j=0;j<3;j++) mid[2][j] = (p1[j] + p4[j])/2;
-    for(j=0;j<3;j++) mid[3][j] = (p2[j] + p3[j])/2;
-    for(j=0;j<3;j++) mid[4][j] = (p3[j] + p4[j])/2;
-    for(j=0;j<3;j++) mid[5][j] = (p2[j] + p4[j])/2;
+	glutDisplayFunc(displayLoop);
+	// 3d depth test
+	glEnable(GL_DEPTH_TEST);
 
-    divideTetra(p1, mid[0], mid[1], mid[2], iter-1);
-    divideTetra(mid[0], p2, mid[3], mid[5], iter-1);
-    divideTetra(mid[1], mid[3], p3, mid[4], iter-1);
-    divideTetra(mid[2], mid[5], mid[4], p4, iter-1);
-  }
-  else {
-    drawTetra(p1, p2, p3, p4);
-  }
-}
-
-void display() {
-  glClear(GL_COLOR_BUFFER_BIT);
-  glBegin(GL_TRIANGLES);
-  divideTetra(tetra[0],tetra[1],tetra[2],tetra[3],iter);
-  glEnd();
-  glFlush();
-}
-
-void myInit() {
-  glOrtho(-250,250,-250,250,-250,250);
-  glClearColor(1,1,1,1);
-  glColor3f(1,0,0);
-}
-
-int main(int argc, char* argv[]) {
-  cout<<"Enter the number of subdivisions: ";
-  cin>>iter;
-  glutInit(&argc, argv);
-  glutInitWindowPosition(100,100);
-  glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-  glutCreateWindow("Sierpinski Gasket");
-  glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
-  glutDisplayFunc(display);
-  myInit();
-
-  glutMainLoop();
-  return 0;
+	glClearColor(0, 0, 0, 1.f);
+	// set up how the camera will look like
+	glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+	// glFrustum(-w/2,w/2,-h/2,h/2,.1,2000);
+  gluPerspective(120,((float)w)/h,.1,1000);
+	glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();glTranslatef(0,0,-100);
+  // glRotatef(-20,1,0,0);
+  glRotatef(-20,0,1,0);
+	glutMainLoop();
 }

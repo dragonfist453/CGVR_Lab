@@ -12,6 +12,7 @@ typedef float point[2];
 point p[MAX_POINTS];
 static float intx[10] = {0};
 
+// Draw a line between 2 points with delay
 void drawLine(float x1, float y1, float x2, float y2) {
     for(int i=0;i<10000000;i++);
     glColor3f(0,0,1);
@@ -22,6 +23,7 @@ void drawLine(float x1, float y1, float x2, float y2) {
     glFlush();
 }
 
+// Detect an edge and add the x-intersections into an array using y = mx+c => x = x0 + (y-y0)/m
 void edgeDetect(float x1, float y1, float x2, float y2, int scanline) {
     float temp;
     if(y2<y1) {
@@ -37,6 +39,7 @@ void edgeDetect(float x1, float y1, float x2, float y2, int scanline) {
     }
 }
 
+// Draw a line between alternate points to fill the polygon
 void scanFill(point p[]) {
     for(int s1=0;s1<=500;s1++) {
         m=0;

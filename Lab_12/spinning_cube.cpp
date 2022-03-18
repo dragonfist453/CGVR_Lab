@@ -66,18 +66,19 @@ void mouse(int btn, int state, int x, int y) {
 	if (btn == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) axis = 2;
 }
 
-void myReshape(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	if (w <= h)
-		glOrtho(-2.0, 2.0, -2.0 * (GLfloat)h / (GLfloat)w,
-			2.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
-	else
-		glOrtho(-2.0 * (GLfloat)w / (GLfloat)h,
-			2.0 * (GLfloat)w / (GLfloat)h, -2.0, 2.0, -10.0, 10.0);
-	glMatrixMode(GL_MODELVIEW);
-}
+// Needed for completion of problem, but not vv imp
+// void myReshape(int w, int h) {
+// 	glViewport(0, 0, w, h);
+// 	glMatrixMode(GL_PROJECTION);
+// 	glLoadIdentity();
+// 	if (w <= h)
+// 		glOrtho(-2.0, 2.0, -2.0 * (GLfloat)h / (GLfloat)w,
+// 			2.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
+// 	else
+// 		glOrtho(-2.0 * (GLfloat)w / (GLfloat)h,
+// 			2.0 * (GLfloat)w / (GLfloat)h, -2.0, 2.0, -10.0, 10.0);
+// 	glMatrixMode(GL_MODELVIEW);
+// }
 
 int main(int argc, char** argv) {
 	//window 1
@@ -86,7 +87,7 @@ int main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("colorcube");
-	glutReshapeFunc(myReshape);
+// 	glutReshapeFunc(myReshape);
 	glutDisplayFunc(displaySingle);
 	glutIdleFunc(spinCube);
 	glutMouseFunc(mouse);

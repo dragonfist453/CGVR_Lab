@@ -8,10 +8,6 @@ GLfloat vertices[] = { -1.0,-1.0,-1.0,1.0,-1.0,-1.0,
 1.0,1.0,-1.0, -1.0,1.0,-1.0, -1.0,-1.0,1.0,
 1.0,-1.0,1.0, 1.0,1.0,1.0, -1.0,1.0,1.0 };
 
-GLfloat normals[] = { -1.0,-1.0,-1.0,1.0,-1.0,-1.0,
-1.0,1.0,-1.0, -1.0,1.0,-1.0, -1.0,-1.0,1.0,
-1.0,-1.0,1.0, 1.0,1.0,1.0, -1.0,1.0,1.0 };
-
 GLfloat colors[] = { 0.0,0.0,0.0,1.0,0.0,0.0,
 1.0,1.0,0.0, 0.0,1.0,0.0, 0.0,0.0,1.0,
 1.0,0.0,1.0, 1.0,1.0,1.0, 0.0,1.0,1.0 };
@@ -82,11 +78,9 @@ int main(int argc, char** argv) {
 	glutMouseFunc(mouse);
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
 	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glColorPointer(3, GL_FLOAT, 0, colors);
-	glNormalPointer(GL_FLOAT, 0, normals);
 	glColor3f(1.0, 1.0, 1.0);
 	glutMainLoop();
     return 0;

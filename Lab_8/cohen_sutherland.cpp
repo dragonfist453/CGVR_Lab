@@ -106,14 +106,6 @@ void cohensuther(double x0, double y0, double x1, double y1)
 		double vx1 = xvmin + (x1 - xmin) * sx;
 		double vy1 = yvmin + (y1 - ymin) * sy;
 
-		glColor3f(1, 0, 0);
-		glBegin(GL_LINE_LOOP);
-		glVertex2f(xvmin, yvmin);
-		glVertex2f(xvmax, yvmin);
-		glVertex2f(xvmax, yvmax);
-		glVertex2f(xvmin, yvmax);
-		glEnd();
-
 		glColor3f(0, 0, 1);
 		glBegin(GL_LINES);
 		glVertex2d(vx0, vy0);
@@ -140,6 +132,14 @@ void display()
 		glVertex2d(ls[i].x2, ls[i].y2);
 		glEnd();
 	}
+	
+	glColor3f(1, 0, 0);
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(xvmin, yvmin);
+	glVertex2f(xvmax, yvmin);
+	glVertex2f(xvmax, yvmax);
+	glVertex2f(xvmin, yvmax);
+	glEnd();
 
 	for (int i = 0; i < n; i++)
 		cohensuther(ls[i].x1, ls[i].y1, ls[i].x2, ls[i].y2);

@@ -118,6 +118,7 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	// Draws window
 	glColor3f(0, 0, 1);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(xmin, ymin);
@@ -125,6 +126,8 @@ void display()
 	glVertex2f(xmax, ymax);
 	glVertex2f(xmin, ymax);
 	glEnd();
+	
+	// Draws lines unclipped for window
 	for (int i = 0; i < n; i++)
 	{
 		glBegin(GL_LINES);
@@ -133,6 +136,7 @@ void display()
 		glEnd();
 	}
 	
+	// Draws viewport
 	glColor3f(1, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(xvmin, yvmin);
@@ -141,6 +145,7 @@ void display()
 	glVertex2f(xvmin, yvmax);
 	glEnd();
 
+	// Clips lines using cohen-sutherland and draws them in viewport
 	for (int i = 0; i < n; i++)
 		cohensuther(ls[i].x1, ls[i].y1, ls[i].x2, ls[i].y2);
 

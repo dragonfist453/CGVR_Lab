@@ -48,7 +48,7 @@ void scanFill(point p[]) {
         }
         sort(intx, intx+m);
         if(m>=2) {
-            for(int i=0;i<m-1;i++) {
+            for(int i=0;i<m-1;i+=2) {
                 drawLine(intx[i], s1, intx[i+1], s1);
             }
         }

@@ -8,7 +8,7 @@ using namespace std;
 // degrees to pi conversion factor
 #define DPI (3.1415/180.f)
 // coordinates function macro
-#define SPHERE_GA(p1,p2) {SPR*sin(DPI*(p1))*cos(DPI*(p2)),SPR*cos(DPI*(p1))*cos(DPI*(p2)),SPR*sin(DPI*(p2))}
+#define SPHERE_GA(theta,phi) {SPR*sin(DPI*(theta))*cos(DPI*(phi)),SPR*cos(DPI*(theta))*cos(DPI*(phi)),SPR*sin(DPI*(phi))}
 
 void displayLoop() {
 	//glClearColor(0, 0, 0, 1.f);

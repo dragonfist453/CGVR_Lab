@@ -11,7 +11,6 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(-450, 450, -450, 450);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	//NORMAL HOUSE
@@ -40,7 +39,6 @@ void display2() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(-450, 450, -450, 450);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	//normal house

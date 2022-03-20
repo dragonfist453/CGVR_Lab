@@ -68,14 +68,13 @@ int main(int argc, char** argv) {
 	glEnable(GL_DEPTH_TEST);
 
 	glClearColor(0, 0, 0, 1.f);
+	glOrtho(-w/2,w/2,-h/2,h/2,-w/2,w/2);
 	// set up how the camera will look like
 	glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-	// glFrustum(-w/2,w/2,-h/2,h/2,.1,2000);
-  gluPerspective(120,((float)w)/h,.1,1000);
+	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();glTranslatef(0,0,-100);
-  // glRotatef(-20,1,0,0);
-  glRotatef(-20,0,1,0);
+	glLoadIdentity();glTranslatef(0,0,-100);
+	// glRotatef(-20,1,0,0);
+	glRotatef(-20,0,1,0);
 	glutMainLoop();
 }
